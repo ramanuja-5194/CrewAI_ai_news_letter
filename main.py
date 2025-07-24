@@ -3,7 +3,6 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from agents import AINewsLetterAgents
 from tasks import AINewsLetterTasks
 from file_io import save_markdown
-
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -18,10 +17,10 @@ tasks = AINewsLetterTasks()
 model = ChatGoogleGenerativeAI(model="gemini/gemini-2.5-flash")
 
 # Instantiate the agents
-editor = agents.editor_agent()
-news_fetcher = agents.news_fetcher_agent()
-news_analyzer = agents.news_analyzer_agent()
-newsletter_compiler = agents.newsletter_compiler_agent()
+editor = agents.editor_agent(llm = model)
+news_fetcher = agents.news_fetcher_agent(llm = model)
+news_analyzer = agents.news_analyzer_agent(llm = model)
+newsletter_compiler = agents.newsletter_compiler_agent(llm = model)
 
 # Instantiate the tasks
 fetch_news_task = tasks.fetch_news_task(news_fetcher)
@@ -33,7 +32,7 @@ compile_newsletter_task = tasks.compile_newsletter_task(
 crew = Crew(
     agents=[editor, news_fetcher, news_analyzer, newsletter_compiler],
     tasks=[fetch_news_task, analyze_news_task, compile_newsletter_task],
-    process=Process.hierarchical,
+    process=Process.sequential,
     manager_llm=model,
     verbose=True
 )

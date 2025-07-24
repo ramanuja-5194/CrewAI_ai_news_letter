@@ -6,7 +6,7 @@ from tools.search_tools import SearchTool
 search_tool = SearchTool()
 
 class AINewsLetterAgents():
-    def editor_agent(self):
+    def editor_agent(self,llm):
         return Agent(
             role='Editor',
             goal='Oversee the creation of the AI Newsletter',
@@ -14,10 +14,11 @@ class AINewsLetterAgents():
             not only informs but also engages and inspires the readers. """,
             allow_delegation=True,
             verbose=True,
+            llm = llm,
             max_iter=15
         )
 
-    def news_fetcher_agent(self):
+    def news_fetcher_agent(self,llm):
         return Agent(
             role='NewsFetcher',
             goal='Fetch the top AI news stories for the day',
@@ -27,9 +28,10 @@ class AINewsLetterAgents():
             tools=[search_tool],
             verbose=True,
             allow_delegation=True,
+            llm = llm,
         )
 
-    def news_analyzer_agent(self):
+    def news_analyzer_agent(self,llm):
         return Agent(
             role='NewsAnalyzer',
             goal='Analyze each news story and generate a detailed markdown summary',
@@ -39,9 +41,10 @@ class AINewsLetterAgents():
             tools=[search_tool],
             verbose=True,
             allow_delegation=True,
+            llm = llm,
         )
 
-    def newsletter_compiler_agent(self):
+    def newsletter_compiler_agent(self,llm):
         return Agent(
             role='NewsletterCompiler',
             goal='Compile the analyzed news stories into a final newsletter format',
@@ -49,4 +52,5 @@ class AINewsLetterAgents():
             ensuring a coherent and visually appealing presentation that captivates our readers. Make sure to follow
             newsletter format guidelines and maintain consistency throughout.""",
             verbose=True,
+            llm = llm,
         )
