@@ -24,7 +24,7 @@ class AINewsLetterTasks():
         return Task(
             description='Analyze each news story and ensure there are at least 5 well-formatted articles',
             agent=agent,
-            async_execution=True,
+            # async_execution=True,
             context=context,
             expected_output="""A markdown-formatted analysis for each news story, including a rundown, detailed bullet points, 
                 and a "Why it matters" section. There should be at least 5 articles, each following the proper format.

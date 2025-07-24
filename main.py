@@ -1,5 +1,4 @@
 from crewai import Crew, Process
-from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from agents import AINewsLetterAgents
 from tasks import AINewsLetterTasks
@@ -16,7 +15,7 @@ tasks = AINewsLetterTasks()
 # OpenAIGPT4 = ChatOpenAI(
 #     model="gpt-4"
 # )
-model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
+model = ChatGoogleGenerativeAI(model="gemini/gemini-2.5-flash")
 
 # Instantiate the agents
 editor = agents.editor_agent()
@@ -36,7 +35,7 @@ crew = Crew(
     tasks=[fetch_news_task, analyze_news_task, compile_newsletter_task],
     process=Process.hierarchical,
     manager_llm=model,
-    verbose=2
+    verbose=True
 )
 
 # Kick off the crew's work
