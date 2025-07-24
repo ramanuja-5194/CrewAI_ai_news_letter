@@ -1,19 +1,17 @@
+# main.py
 from crewai import Crew, Process
 from agents import AINewsLetterAgents
 from tasks import AINewsLetterTasks
 from litellm import completion
 from file_io import save_markdown
 from dotenv import load_dotenv
+import os
 load_dotenv()
 # Initialize the agents and tasks
 agents = AINewsLetterAgents()
 tasks = AINewsLetterTasks()
 
-# Initialize the OpenAI GPT-4 language model
-# OpenAIGPT4 = ChatOpenAI(
-#     model="gpt-4"
-# )
-model = "gemini/gemini-1.5-flash-latest"
+model = "gemini/gemini-1.5-flash"
 
 # Instantiate the agents
 editor = agents.editor_agent(llm = model)
