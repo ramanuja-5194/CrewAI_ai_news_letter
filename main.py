@@ -1,11 +1,10 @@
 from crewai import Crew, Process
-from langchain_google_genai import ChatGoogleGenerativeAI
 from agents import AINewsLetterAgents
 from tasks import AINewsLetterTasks
+from litellm import completion
 from file_io import save_markdown
 from dotenv import load_dotenv
 load_dotenv()
-
 # Initialize the agents and tasks
 agents = AINewsLetterAgents()
 tasks = AINewsLetterTasks()
@@ -14,7 +13,7 @@ tasks = AINewsLetterTasks()
 # OpenAIGPT4 = ChatOpenAI(
 #     model="gpt-4"
 # )
-model = ChatGoogleGenerativeAI(model="gemini/gemini-2.5-flash")
+model = "gemini/gemini-1.5-flash-latest"
 
 # Instantiate the agents
 editor = agents.editor_agent(llm = model)
